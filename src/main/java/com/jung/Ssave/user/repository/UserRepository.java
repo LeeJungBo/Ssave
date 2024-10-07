@@ -13,7 +13,7 @@ public interface UserRepository {
 	public int insertUser(
 			@Param("loginId") String loginId
 			, @Param("name") String name
-			, @Param("password") String password
+			, @Param("password") String encryptPassword
 			, @Param("phoneNumber") String phoneNumber);
 	
 	public User selectUser(

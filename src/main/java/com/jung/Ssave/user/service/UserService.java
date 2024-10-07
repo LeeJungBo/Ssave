@@ -2,25 +2,32 @@ package com.jung.Ssave.user.service;
 
 import org.springframework.stereotype.Service;
 
+import com.jung.Ssave.common.Encrypt;
 import com.jung.Ssave.user.domain.User;
 import com.jung.Ssave.user.repository.UserRepository;
 
 @Service
 public class UserService {
 	
+	
 	private UserRepository userRepository;
 	
 	public UserService(UserRepository userRepository){
 		
 		this.userRepository = userRepository;
-	
+		
 	}
 
 
 
 	public int addUser(String loginId, String name, String password, String phoneNumber){
 		
-		int count = userRepository.insertUser(loginId, name, password, phoneNumber);
+		Encrypt encrypt = new Encrypt();
+		
+		String salt = encrypt.getSalt();
+		String encryptPassword = encrypt.getEncrypt(password, salt);
+		
+		int count = userRepository.insertUser(loginId, name, encryptPassword, phoneNumber);
 		
 		return count;
 		

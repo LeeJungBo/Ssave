@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component("md5Hashing")
 public class MD5HashingEncode implements HashingEncoder {
 
-public String encode(String message) {
+	public String encode(String message) {
 		
 		
 		String result = "";

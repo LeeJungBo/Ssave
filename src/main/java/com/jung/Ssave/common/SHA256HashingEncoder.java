@@ -2,13 +2,16 @@ package com.jung.Ssave.common;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 import org.springframework.stereotype.Component;
 
 @Component("sha256Hashing")
 public class SHA256HashingEncoder implements HashingEncoder {
 
+	
 	public String encode(String message) {
+		
 		
 		String result = "";
 		

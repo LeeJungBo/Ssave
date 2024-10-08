@@ -3,17 +3,17 @@ package com.jung.Ssave.user.domain;
 import java.time.LocalDateTime;
 
 
-
-
 public class User {
 
 	private int id;
 	private String loginId;
 	private String name;
 	private String password;
+	private String salt;
 	private String phoneNumber;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+	
 	
 	
 	public int getId() {
@@ -40,6 +40,12 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getSalt() {
+		return salt;
+	}
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -58,6 +64,7 @@ public class User {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
 	
 	
 	

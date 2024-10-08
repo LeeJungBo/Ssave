@@ -47,18 +47,14 @@ public class UserRestController {
 	}
 	
 	@PostMapping("/login")
-	public Map<String, String> inputLogin(
+	public Map<String, Boolean> inputLogin(
 			@RequestParam("loginId") String loginId
 			, @RequestParam("password") String password){
 		
-		User user = userService.getUser(loginId, password);
+		boolean loginUser = userService.getUser(loginId, password);
 		
-		Map<String, String> resultMap = new HashMap<>();
-		if(user != null) {
-			resultMap.put("result", "success");
-		}else {
-			resultMap.put("result", "fail");
-		}
+		Map<String, Boolean> resultMap = new HashMap<>();
+		resultMap.put("result", loginUser);
 		
 		return resultMap;
 		

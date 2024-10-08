@@ -55,5 +55,22 @@
             `loginId` = #{loginId}
             
     </select>
+    
+    <select id="selectByLoginId" parameterType="String" resultType="com.jung.Ssave.user.domain.User">
+        
+        SELECT
+            `id`
+            , `loginId`
+            , `name`
+            , `password`
+            , `phoneNumber`
+            , `createdAt`
+            , `updatedAt`
+        FROM
+            `user`
+        WHERE
+            `loginId` = #{loginId}
+    
+    </select>
 
 </mapper>

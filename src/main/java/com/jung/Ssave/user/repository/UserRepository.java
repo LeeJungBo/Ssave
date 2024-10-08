@@ -18,8 +18,10 @@ public interface UserRepository {
 	
 	public User selectUser(
 			@Param("loginId") String loginId
-			, @Param("password") String password);
+			, @Param("password") String hashedPassword);
 	
 	public int selectCountByLoginId(@Param("loginId") String loginId);
+	
+	public User selectByLoginId(@Param("loginId") String loginId);
 	
 }

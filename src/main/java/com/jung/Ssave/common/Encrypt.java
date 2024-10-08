@@ -22,6 +22,7 @@ public class Encrypt {
 		};
 		
 		return stringBuffer.toString();
+		
 	}
 	
 	
@@ -43,13 +44,16 @@ public class Encrypt {
 				stringBuffer.append(String.format("%02x", bytePasswordSalt));
 			}
 			
-			result=stringBuffer.toString();
+			result = stringBuffer.toString();
 			
 		} catch (NoSuchAlgorithmException e) {
+			
 			e.printStackTrace();
+		
 		}
-
+		
 		return result;
+	
 	}
 	
 	

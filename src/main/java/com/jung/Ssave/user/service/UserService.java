@@ -1,5 +1,6 @@
 package com.jung.Ssave.user.service;
 
+
 import org.springframework.stereotype.Service;
 
 import com.jung.Ssave.common.Encrypt;
@@ -9,13 +10,11 @@ import com.jung.Ssave.user.repository.UserRepository;
 @Service
 public class UserService {
 	
-	
 	private UserRepository userRepository;
 	
 	public UserService(UserRepository userRepository){
 		
 		this.userRepository = userRepository;
-		
 	}
 
 
@@ -33,11 +32,27 @@ public class UserService {
 		
 	}
 	
-	public User getUser(String loginId, String paassword) {
+	
+	public boolean getUser(String loginId, String password) {
 		
-		return userRepository.selectUser(loginId, paassword);
+		Encrypt encrypt = new Encrypt();
+		
+		User user = userRepository.selectByLoginId(loginId);
+		if(user == null) {
+			
+			return false;
+		
+		}
+		// user.getSalt()를 통해 기존의 salt를 이용하여 로그인시 입력한 패스워드에 기존 salt를 붙여 
+		// 지금 데이터베이스에 있는 password와 비요해줄것
+		String hashedPassword = encrypt.getEncrypt(password, user.getSalt()); 
+		
+		return hashedPassword.equals(user.getPassword());
 		
 	}
+	
+	
+	
 	
 	public Boolean isDuplicateLoginId(String loginId) {
 		
@@ -50,8 +65,6 @@ public class UserService {
 		}
 		
 	}
-	
-	
 	
 	
 	

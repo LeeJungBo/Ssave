@@ -5,6 +5,16 @@
     margin: 0 auto;
 }
 
+.main-manu{
+	width: 70px;
+	margin-top: 75px;
+	background-color: rgb(255, 241, 255);
+}
+
+.section{
+	width: 1150px;
+}
+
 .contents > .input-box{
     width: 400px;
     height: 630px;

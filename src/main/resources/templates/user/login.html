@@ -60,7 +60,7 @@
         			, url:"/user/login"
         			, data:{"loginId":loginId, "password":password}
         		    , success:function(data){
-        		    	if(data.result == true){
+        		    	if(data.result == "success"){
         		    		alert("로그인 성공");
         		    	}else{
         		    		alert("로그인 실패");

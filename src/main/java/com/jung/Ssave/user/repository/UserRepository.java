@@ -2,26 +2,23 @@ package com.jung.Ssave.user.repository;
 
 
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.jung.Ssave.user.domain.User;
 
-@Mapper
-public interface UserRepository {
 
-	public int insertUser(
-			@Param("loginId") String loginId
-			, @Param("name") String name
-			, @Param("password") String encryptPassword
-			, @Param("phoneNumber") String phoneNumber);
+public interface UserRepository extends JpaRepository<User, Integer> {
+
 	
-	public User selectUser(
-			@Param("loginId") String loginId
-			, @Param("password") String hashedPassword);
+	public User findByLoginId(String loginId);
 	
-	public int selectCountByLoginId(@Param("loginId") String loginId);
 	
-	public User selectByLoginId(@Param("loginId") String loginId);
+	public int countByLoginId(String loginId);
+	
+	
+	public User findByLoginIdAndPassword(String loginId, String password);
+	
+	
 	
 }

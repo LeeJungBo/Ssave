@@ -1,6 +1,7 @@
 package com.jung.Ssave.user.service;
 
 
+
 import org.springframework.stereotype.Service;
 
 import com.jung.Ssave.common.Encrypt;
@@ -19,36 +20,39 @@ public class UserService {
 
 
 
-	public int addUser(String loginId, String name, String password, String phoneNumber){
+	public User addUser(String loginId, String name, String password, String phoneNumber){
 		
 		Encrypt encrypt = new Encrypt();
 		
 		String salt = encrypt.getSalt();
 		String encryptPassword = encrypt.getEncrypt(password, salt);
 		
-		int count = userRepository.insertUser(loginId, name, encryptPassword, phoneNumber);
+		User user = User.builder()
+				        .loginId(loginId)
+				        .name(name)
+				        .password(encryptPassword)
+				        .salt(salt)
+				        .phoneNumber(phoneNumber)
+				        .build();
 		
-		return count;
+		User result  = userRepository.save(user);
+		
+		return result;
+		
 		
 	}
 	
 	
-	public boolean getUser(String loginId, String password) {
+	public User getUser(String loginId, String password) {
 		
 		Encrypt encrypt = new Encrypt();
 		
-		User user = userRepository.selectByLoginId(loginId);
-		if(user == null) {
-			
-			return false;
+		User user = userRepository.findByLoginId(loginId);
 		
-		}
-		// user.getSalt()를 통해 기존의 salt를 이용하여 로그인시 입력한 패스워드에 기존 salt를 붙여 
-		// 지금 데이터베이스에 있는 password와 비요해줄것
-		String hashedPassword = encrypt.getEncrypt(password, user.getSalt()); 
+		String encryptPassword = encrypt.getEncrypt(password, user.getSalt());
 		
-		return hashedPassword.equals(user.getPassword());
-		
+		return userRepository.findByLoginIdAndPassword(loginId, encryptPassword);
+	
 	}
 	
 	
@@ -56,7 +60,7 @@ public class UserService {
 	
 	public Boolean isDuplicateLoginId(String loginId) {
 		
-		int count = userRepository.selectCountByLoginId(loginId);
+		int count = userRepository.countByLoginId(loginId);
 		
 		if(count == 0) {
 			return false;

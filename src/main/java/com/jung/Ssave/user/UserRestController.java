@@ -33,10 +33,10 @@ public class UserRestController {
 			, @RequestParam("password") String password
 			, @RequestParam("phoneNumber") String phoneNumber){
 		
-		int count = userService.addUser(loginId, name, password, phoneNumber);
+		User user = userService.addUser(loginId, name, password, phoneNumber);
 		
 		Map<String, String> resultMap = new HashMap<>();
-		if(count == 1) {
+		if(user != null ) {
 			resultMap.put("result", "success");
 		}else {
 			resultMap.put("result", "fail");
@@ -47,14 +47,18 @@ public class UserRestController {
 	}
 	
 	@PostMapping("/login")
-	public Map<String, Boolean> inputLogin(
+	public Map<String, String> inputLogin(
 			@RequestParam("loginId") String loginId
 			, @RequestParam("password") String password){
 		
-		boolean loginUser = userService.getUser(loginId, password);
+		User user = userService.getUser(loginId, password);
 		
-		Map<String, Boolean> resultMap = new HashMap<>();
-		resultMap.put("result", loginUser);
+		Map<String, String> resultMap = new HashMap<>();
+		if(user != null ) {
+			resultMap.put("result", "success");
+		}else {
+			resultMap.put("result", "fail");
+		}
 		
 		return resultMap;
 		

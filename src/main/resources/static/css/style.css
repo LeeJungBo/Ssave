@@ -16,6 +16,11 @@
 	width: 1150px;
 }
 
+.section > .product-box{
+	width: 160px;
+	height: 200px;
+}
+
 
 .contents > .input-box{
     width: 400px;

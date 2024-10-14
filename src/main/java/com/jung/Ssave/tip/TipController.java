@@ -1,5 +1,7 @@
 package com.jung.Ssave.tip;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jung.Ssave.tip.domain.Tip;
+import com.jung.Ssave.tip.dto.TipListView;
 import com.jung.Ssave.tip.service.TipService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/tip")
@@ -21,7 +26,17 @@ public class TipController {
 	}
 	
 	@GetMapping("/list-view")
-	public String tipList() {
+	public String tipList(
+			Model model
+			, HttpSession session) {
+		
+		int userId = (Integer)session.getAttribute("userId");
+		
+		List<TipListView> tipListView = tipService.getTipList();
+		
+		model.addAttribute("tipListView", tipListView);
+		
+		
 		
 		return "tip/tipList";
 		

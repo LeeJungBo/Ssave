@@ -2,6 +2,8 @@ package com.jung.Ssave.user.service;
 
 
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.jung.Ssave.common.Encrypt;
@@ -67,6 +69,15 @@ public class UserService {
 		}else {
 			return true;
 		}
+		
+	}
+	
+	public User getUserById(int id){
+		
+		Optional<User> optionalUser = userRepository.findById(id);
+		User user = optionalUser.orElse(null);
+		
+		return user;
 		
 	}
 	

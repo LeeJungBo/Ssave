@@ -3,6 +3,8 @@ package com.jung.Ssave.user.repository;
 
 
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.jung.Ssave.user.domain.User;
@@ -18,6 +20,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	
 	public User findByLoginIdAndPassword(String loginId, String password);
+	
+	
 	
 	
 	

@@ -1,5 +1,7 @@
 package com.jung.Ssave.tip.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.jung.Ssave.tip.domain.Tip;
@@ -27,7 +29,16 @@ public class TipService {
 		
 		return result;
 				     
-			
+	}
+	
+	public Tip getTip(int id) {
+		
+		Optional<Tip> optionalTip = tipRepository.findById(id);
+		
+		Tip tip = optionalTip.orElse(null);
+		
+		return tip;
+		
 	}
 	
 }

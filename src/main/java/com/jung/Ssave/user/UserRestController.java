@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jung.Ssave.user.domain.User;
 import com.jung.Ssave.user.service.UserService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/user")
 public class UserRestController {
@@ -49,13 +51,15 @@ public class UserRestController {
 	@PostMapping("/login")
 	public Map<String, String> inputLogin(
 			@RequestParam("loginId") String loginId
-			, @RequestParam("password") String password){
+			, @RequestParam("password") String password
+			, HttpSession session){
 		
 		User user = userService.getUser(loginId, password);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		if(user != null ) {
 			resultMap.put("result", "success");
+			session.setAttribute("userId", user.getId());
 		}else {
 			resultMap.put("result", "fail");
 		}

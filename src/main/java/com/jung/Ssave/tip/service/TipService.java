@@ -19,6 +19,7 @@ public class TipService {
 		Tip tip = Tip.builder()
 				     .userId(userId)
 				     .productId(productId)
+				     .title(title)
 				     .contents(contents)
 				     .build();
 		

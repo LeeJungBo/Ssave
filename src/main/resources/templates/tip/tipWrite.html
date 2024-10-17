@@ -80,7 +80,7 @@
                 		, data:{"title":title, "contents":contents, "productId":productId}
                 	    , success:function(data){
                 	    	if(data.result == "success"){
-                	    		alert("입력 성공");
+                	    		location.href = "/tip/list-view";
                 	    	}else{
                 	    		alert("입력 실패");
                 	    	}

@@ -9,6 +9,8 @@ import lombok.Getter;
 @Getter
 public class TipListView {
 
+	private int tipId;
+	
 	private String title;
 	private String loginId; 
 	

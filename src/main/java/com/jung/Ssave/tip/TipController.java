@@ -27,10 +27,8 @@ public class TipController {
 	
 	@GetMapping("/list-view")
 	public String tipList(
-			Model model
-			, HttpSession session) {
+			Model model) {
 		
-		int userId = (Integer)session.getAttribute("userId");
 		
 		List<TipListView> tipListView = tipService.getTipList();
 		

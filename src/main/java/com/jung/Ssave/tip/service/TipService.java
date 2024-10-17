@@ -60,6 +60,7 @@ public class TipService {
 			// 이게 매칭이 되어야 리스트에도 한칸에 다들어갈수있음 따라서 이렇게 따로 리스트로만들면 안되고 한 반복문안에서 추출해줘서 나올수 있게 해준다.
 			
 			TipListView tipListView = TipListView.builder()
+											     .tipId(tip.getId())
 									             .title(tip.getTitle())
 									             .loginId(user.getLoginId())
 									             .build();

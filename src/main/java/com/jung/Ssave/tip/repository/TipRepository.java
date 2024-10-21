@@ -11,4 +11,5 @@ public interface TipRepository extends JpaRepository<Tip, Integer>{
 	public List<Tip> findByUserIdOrderByIdDesc(int userId);
 	
 	
+	
 }

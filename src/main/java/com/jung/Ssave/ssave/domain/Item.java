@@ -1,25 +1,19 @@
-package com.jung.Ssave.ssave.dto;
+package com.jung.Ssave.ssave.domain;
 
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
 @NoArgsConstructor
-@Setter
+@AllArgsConstructor
 @Getter
-public class AladinBookView {
+@Setter
+public class Item {
 
-	@Id
-	private int id;
-	
 	private String title;
 	
 	private String author;
-	
-	private String category;
 	
 	private String description;
 	
@@ -32,5 +26,6 @@ public class AladinBookView {
 	private int pricesales;
 	
 	private int pricestandard;
+
 	
 }

@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body onload="bindingKeyword()">
+<body>
 
 
 
@@ -40,8 +40,16 @@
                     <input type="text" id="keyword" placeholder="검색어를 입력해주세요" class="form-control">
                     <button type="submit" id="searchBtn" class="form-control">검색</button>
                 </form>
-                <div>
-                    
+                <div class="d-flex flex-container">
+                    <div th:each="aladdinItemResponse:${aladdinItemResponseList}" class="card ml-3 mt-3" style="width: 18rem;">
+				        <img th:src="${aladdinItemResponse.cover}" class="image-thumbnail card-img-top" alt="책 표지들입니다.">
+						<div class="card-body">
+						  <h5 class="card-title" th:text="${aladdinItemResponse.title}">Card title</h5>
+						  <p class="card-text" th:text="${aladdinItemResponse.author}"></p>
+						  <p class="card-text" th:text="${aladdinItemResponse.publisher}"></p>
+						  <p class="card-text" th:text="${aladdinItemResponse.pubDate}"></p>
+						</div>
+					 </div>
                 </div>
              </div>
          </div>
@@ -57,7 +65,9 @@
         <script>
         
         $(document).ready(function () {
-            let keywordList = JSON.parse(localStorage.getItem("search-history")) || [];
+            
+        	
+        	let keywordList = JSON.parse(localStorage.getItem("search-history")) || [];
 
             // 검색 히스토리 목록 렌더링
             function renderKeywords() {

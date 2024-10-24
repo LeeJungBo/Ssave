@@ -1,16 +1,13 @@
 package com.jung.Ssave.ssave.service;
 
-
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.jung.Ssave.ssave.domain.AladdinItemResponse;
 
 @Service
-public class AladinBookService {
+public class AladdinItemService {
 
-	
 	private final String API_URL = "http://www.aladin.co.kr/ttb/api/ItemList.aspx";
 	
 	
@@ -31,6 +28,5 @@ public class AladinBookService {
 		
 		return response;
 	}
-
-
+	
 }

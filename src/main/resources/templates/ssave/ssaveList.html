@@ -36,8 +36,8 @@
             <h3 class="mt-3">실시간 낮은 가격을 한눈에!</h3>
             <div class="search-box col-12 mt-5">
 			    <ul id="keywordListEl" class="d-flex pl-0"></ul>
-                <form id="form" class="d-flex">
-                    <input type="text" id="keyword" placeholder="검색어를 입력해주세요" class="form-control">
+                <form id="form" class="d-flex" action="/ssave/listView-search" method="get">
+                    <input type="text" id="keyword" placeholder="검색어를 입력해주세요" class="form-control" name="keyword">
                     <button type="submit" id="searchBtn" class="form-control">검색</button>
                 </form>
                 <div class="d-flex flex-container">
@@ -45,9 +45,11 @@
 				        <img th:src="${aladdinItemResponse.cover}" class="image-thumbnail card-img-top" alt="책 표지들입니다.">
 						<div class="card-body">
 						  <h5 class="card-title" th:text="${aladdinItemResponse.title}">Card title</h5>
-						  <p class="card-text" th:text="${aladdinItemResponse.author}"></p>
-						  <p class="card-text" th:text="${aladdinItemResponse.publisher}"></p>
-						  <p class="card-text" th:text="${aladdinItemResponse.pubDate}"></p>
+						  <p class="card-author" th:text="${aladdinItemResponse.author}"></p>
+						  <p class="card-publisher" th:text="${aladdinItemResponse.publisher}"></p>
+						  <p class="card-pubDate" th:text="${aladdinItemResponse.pubDate}"></p>
+						  <p class="card-pubDate" th:text="${aladdinItemResponse.priceSales}"></p><!-- 여기에 자꾸 0이 떳던건 dto멤버변수 명칭과 데이터 명칭이 맞지 않아서 그런거였음 에러 500이 떳을때 정확히 그문제를 보고 해줄것(여기에서 데이터로 끌고오는건 dto에서 끌고 오는거) -->
+						  <p class="card-pubDate" th:text="${aladdinItemResponse.priceStandard}"></p>
 						</div>
 					 </div>
                 </div>
@@ -66,6 +68,8 @@
         
         $(document).ready(function () {
             
+        	
+        	
         	
         	let keywordList = JSON.parse(localStorage.getItem("search-history")) || [];
 
@@ -93,6 +97,7 @@
                     $("#keyword").val(""); // 입력창 초기화
                 } else {
                     alert("검색어를 입력해주세요");
+                    return;
                 }
             }
 
@@ -101,6 +106,7 @@
             	
             	saveKeyword();  // 검색어 저장
                 renderKeywords(); // 저장된 목록 갱신
+                
             });
 
             // 페이지 로드 시 검색 히스토리 목록 렌더링

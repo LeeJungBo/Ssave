@@ -23,9 +23,9 @@ public class Item {
 	
 	private String cover;
 	
-	private int pricesales;
+	private int priceSales; // 다른 사이트에 있는 변수값과 이름 정확히 매칭해줄것
 	
-	private int pricestandard;
+	private int priceStandard;
 
 	
 }

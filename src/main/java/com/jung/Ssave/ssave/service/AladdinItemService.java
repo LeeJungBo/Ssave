@@ -4,6 +4,7 @@ package com.jung.Ssave.ssave.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.jung.Ssave.ssave.domain.AladdinItemDetailResponse;
 import com.jung.Ssave.ssave.domain.AladdinItemResponse;
 
 
@@ -12,6 +13,7 @@ public class AladdinItemService {
 
 	private final String API_URL = "http://www.aladin.co.kr/ttb/api/ItemList.aspx";
 	private final String API_URLS = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx";
+	private final String API_URLD = "http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx";
 	
 	public AladdinItemResponse connectAladin(String ttbkey
 											, String queryType
@@ -37,6 +39,8 @@ public class AladdinItemService {
 	}
 	
 	
+	
+	
 	public AladdinItemResponse searchAladin(String ttbkey
 								   , String Query
 								   , String queryType
@@ -57,15 +61,48 @@ public class AladdinItemService {
 		System.out.println("API URL: " + url);
 		
 		try {
-		    AladdinItemResponse response = restTemplate.getForObject(url, AladdinItemResponse.class);
+		    
+			AladdinItemResponse response = restTemplate.getForObject(url, AladdinItemResponse.class);
 		    return response;
+		
 		} catch (Exception e) {
-		    System.out.println("API 호출 에러: " + e.getMessage());
+		    
+			System.out.println("API 호출 에러: " + e.getMessage());
 		    e.printStackTrace();
 		    return null;
+		
 		}
 		
 		
+	}
+	
+	public AladdinItemDetailResponse detailAladin(String ttbkey
+			   								, String itemIdType
+			   								, String ItemId
+			   								, String output
+			   								, String OptResult){
+
+				RestTemplate restTemplate = new RestTemplate();
+				String url = API_URLD + "?ttbkey=" + ttbkey
+									  + "&itemIdType=" + itemIdType
+									  + "&ItemId=" + ItemId
+									  + "&output=" + output	
+									  + "&Version=20131101"
+									  + "&OptResult=" + OptResult;
+									  
+				try {
+						
+					AladdinItemDetailResponse aladdinItemDetailResponse = restTemplate.getForObject(url, AladdinItemDetailResponse.class);
+						return aladdinItemDetailResponse;
+				
+				} catch (Exception e) {
+
+						System.out.println("API 호출 에러: " + e.getMessage());
+						e.printStackTrace();
+						return null;
+				}
+
+
 	}
 	
 	

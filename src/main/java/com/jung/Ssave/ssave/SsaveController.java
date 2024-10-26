@@ -2,6 +2,7 @@ package com.jung.Ssave.ssave;
 
 
 
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.jung.Ssave.ssave.domain.AladdinItemDetailResponse;
 import com.jung.Ssave.ssave.domain.AladdinItemResponse;
 import com.jung.Ssave.ssave.service.AladdinItemService;
 
@@ -51,7 +53,7 @@ public class SsaveController {
 							   , Model model) {
 		
 		String Query = keyword;
-		String queryType = "Title";
+		String queryType = "Keyword";
 		int maxResults = 10;
 		int start = 1;
 		String searchTarget = "Book";
@@ -59,6 +61,19 @@ public class SsaveController {
 		
 		AladdinItemResponse aladdinItemResponse = aladinBookService.searchAladin(ttbkey, Query, queryType, maxResults, start, searchTarget, output);
 		model.addAttribute("itemList", aladdinItemResponse.getItem());
+		
+		return "ssave/ssaveSearchList";
+	}
+	
+	@GetMapping("/detail")
+	public String detailAladin(@RequestParam("itemId") String itemId) {
+		
+		String itemIdType = "ISBN13";
+		String ItemId = itemId;
+		String output = "JS";
+		String OptResult = "ebookList,usedList,reviewList";
+		
+		AladdinItemDetailResponse aladdinItemDetailResponse = aladinBookService.detailAladin(ttbkey, itemIdType, ItemId, output, OptResult);
 		
 		return "ssave/ssaveSearchList";
 	}

@@ -16,4 +16,5 @@ public class AladdinItemResponse {
 	private List<Item> item; // 반드시 변수이름이 갖다쓸려는 사이트의 데이터의 키값과 같아야한다.
 	
 	
+	
 }

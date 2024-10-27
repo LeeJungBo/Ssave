@@ -15,7 +15,7 @@ public class Item {
 
 	private long itemId;
 	
-	private int isbn13;
+	private long isbn13;
 	
 	private String link;
 	

@@ -34,7 +34,7 @@ public class SsaveController {
 	public String connectAladin(Model model) {
         
 		
-		String queryType = "ItemNewAll";
+		String queryType = "Bestseller";
 		int maxResults = 50;
 		int start = 1;
 		String searchTarget = "Book";
@@ -66,16 +66,20 @@ public class SsaveController {
 	}
 	
 	@GetMapping("/detail")
-	public String detailAladin(@RequestParam("itemId") String itemId) {
+	public String detailAladin(@RequestParam("itemId") String itemId
+								, Model model) {
 		
 		String itemIdType = "ISBN13";
 		String ItemId = itemId;
 		String output = "JS";
 		String OptResult = "ebookList,usedList,reviewList";
+		String Cover = "Big";
 		
-		AladdinItemDetailResponse aladdinItemDetailResponse = aladinBookService.detailAladin(ttbkey, itemIdType, ItemId, output, OptResult);
+		AladdinItemDetailResponse aladdinItemDetailResponse = aladinBookService.detailAladin(ttbkey, itemIdType, ItemId, output, OptResult, Cover);
+		model.addAttribute("item", aladdinItemDetailResponse.getItem().get(0));
+		model.addAttribute("subInfo", aladdinItemDetailResponse.getItem().get(0).getSubInfo());
 		
-		return "ssave/ssaveSearchList";
+		return "ssave/ssaveDetail";
 	}
 	
 	

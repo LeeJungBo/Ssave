@@ -80,7 +80,8 @@ public class AladdinItemService {
 			   								, String itemIdType
 			   								, String ItemId
 			   								, String output
-			   								, String OptResult){
+			   								, String OptResult
+			   								, String Cover){
 
 				RestTemplate restTemplate = new RestTemplate();
 				String url = API_URLD + "?ttbkey=" + ttbkey
@@ -88,7 +89,8 @@ public class AladdinItemService {
 									  + "&ItemId=" + ItemId
 									  + "&output=" + output	
 									  + "&Version=20131101"
-									  + "&OptResult=" + OptResult;
+									  + "&OptResult=" + OptResult
+									  + "&Cover=" + Cover;
 									  
 				try {
 						

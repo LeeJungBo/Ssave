@@ -80,6 +80,16 @@ footer > .sub-login{
   white-space: nowrap;
 }
 
+
+.container > .image-box{
+	height: 450px;
+}
+
+.image-box > .image-cover{
+	width: 400px;
+    height:100%;
+}
+
 .flex-container{
 	flex-wrap: wrap;
 }

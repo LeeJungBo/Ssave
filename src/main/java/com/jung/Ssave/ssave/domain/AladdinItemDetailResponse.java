@@ -22,17 +22,13 @@ public class AladdinItemDetailResponse {
 	 @Setter
 	 public static class SubInfo {
 		 
-		 private String subTitle;
-		 
-		 private String originalTitle;
-		 
 		 private int itemPage;
 		 
 		 private List<EbookList> ebookList;
 	       
-		 private UsedList usedList;
 	 
 	 }
+	 
 	 
 	 
 		 @NoArgsConstructor
@@ -47,26 +43,8 @@ public class AladdinItemDetailResponse {
 		        
 		     private String link;
 	
-		        
 		 }
 		 
-		 
-		 @NoArgsConstructor
-		 @AllArgsConstructor
-		 @Getter
-		 @Setter
-		 public static class UsedList {
-		        
-			 	private int itemCount;
-		        
-			 	private int minPrice;
-		        
-			 	private String link;
-
-		        
-		 }
-
-	 
 	 
 	 
 }

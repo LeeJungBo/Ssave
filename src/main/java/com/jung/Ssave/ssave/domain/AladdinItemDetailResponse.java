@@ -24,26 +24,11 @@ public class AladdinItemDetailResponse {
 		 
 		 private int itemPage;
 		 
-		 private List<EbookList> ebookList;
-	       
 	 
 	 }
 	 
 	 
 	 
-		 @NoArgsConstructor
-		 @AllArgsConstructor
-		 @Getter
-		 @Setter
-		 public static class EbookList {
-		        
-			 private long itemId;
-		        
-		     private int priceSales;
-		        
-		     private String link;
-	
-		 }
 		 
 	 
 	 

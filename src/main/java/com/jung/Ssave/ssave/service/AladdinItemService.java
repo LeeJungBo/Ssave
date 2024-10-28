@@ -1,6 +1,7 @@
 package com.jung.Ssave.ssave.service;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,12 +16,16 @@ public class AladdinItemService {
 	private final String API_URLS = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx";
 	private final String API_URLD = "http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx";
 	
-	public AladdinItemResponse connectAladin(String ttbkey
-											, String queryType
-											, int maxResults
-											, int start
-											,  String searchTarget
-											, String output) {
+	@Value("${aladin.ttbkey}")
+	private String ttbkey;
+	
+	public AladdinItemResponse connectAladin() {
+		
+		String queryType = "Bestseller";
+		int maxResults = 50;
+		int start = 1;
+		String searchTarget = "Book";
+		String output = "JS";
 		
 		RestTemplate restTemplate = new RestTemplate();
 		String url = API_URL + "?ttbkey=" + ttbkey
@@ -41,13 +46,13 @@ public class AladdinItemService {
 	
 	
 	
-	public AladdinItemResponse searchAladin(String ttbkey
-								   , String Query
-								   , String queryType
-								   , int maxResults
-								   , int start
-								   , String searchTarget
-								   , String output){
+	public AladdinItemResponse searchAladin(String Query){
+		
+		String queryType = "Keyword";
+		int maxResults = 10;
+		int start = 1;
+		String searchTarget = "Book";
+		String output = "JS";
 		
 		RestTemplate restTemplate = new RestTemplate();
 		String url = API_URLS + "?ttbkey=" + ttbkey
@@ -76,13 +81,13 @@ public class AladdinItemService {
 		
 	}
 	
-	public AladdinItemDetailResponse detailAladin(String ttbkey
-			   								, String itemIdType
-			   								, String ItemId
-			   								, String output
-			   								, String OptResult
-			   								, String Cover){
+	public AladdinItemDetailResponse detailAladin(String ItemId){
 
+				String itemIdType = "ISBN13";
+				String output = "JS";
+				String OptResult = "ebookList,usedList,reviewList";
+				String Cover = "Big";
+		
 				RestTemplate restTemplate = new RestTemplate();
 				String url = API_URLD + "?ttbkey=" + ttbkey
 									  + "&itemIdType=" + itemIdType
@@ -93,17 +98,13 @@ public class AladdinItemService {
 									  + "&Cover=" + Cover;
 									  
 				try {
-						
 					AladdinItemDetailResponse aladdinItemDetailResponse = restTemplate.getForObject(url, AladdinItemDetailResponse.class);
 						return aladdinItemDetailResponse;
-				
 				} catch (Exception e) {
-
 						System.out.println("API 호출 에러: " + e.getMessage());
 						e.printStackTrace();
 						return null;
 				}
-
 
 	}
 	

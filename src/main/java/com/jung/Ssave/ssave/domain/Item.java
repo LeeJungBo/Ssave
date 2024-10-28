@@ -33,8 +33,6 @@ public class Item {
 	
 	private int priceSales; // 다른 사이트에 있는 변수값과 이름 정확히 매칭해줄것
 	
-	private int priceStandard;
-	
 	private SubInfo subInfo;
 	
 

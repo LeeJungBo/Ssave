@@ -21,8 +21,6 @@ public class SsaveController {
 
 	private AladdinItemService aladinBookService;
 	
-	@Value("${aladin.ttbkey}")
-	private String ttbkey;
 	
 	public SsaveController(AladdinItemService aladinBookService) {
 		
@@ -34,13 +32,7 @@ public class SsaveController {
 	public String connectAladin(Model model) {
         
 		
-		String queryType = "Bestseller";
-		int maxResults = 50;
-		int start = 1;
-		String searchTarget = "Book";
-		String output = "JS";
-		
-		AladdinItemResponse aladdinItemResponse = aladinBookService.connectAladin(ttbkey, queryType, maxResults, start, searchTarget, output);
+		AladdinItemResponse aladdinItemResponse = aladinBookService.connectAladin();
 		
 		model.addAttribute("aladdinItemResponseList",aladdinItemResponse.getItem()); // 아예 직접적으로 리스를 내가 get으로 끌고와서 해보자
 																				     // 맞네 자꾸 기본장착된 tostring()메소드가 호출되게 되어서 AladdinItemResponse 객체 자체를 뷰로 전달되었기 때문이다.
@@ -53,29 +45,19 @@ public class SsaveController {
 							   , Model model) {
 		
 		String Query = keyword;
-		String queryType = "Keyword";
-		int maxResults = 10;
-		int start = 1;
-		String searchTarget = "Book";
-		String output = "JS";
 		
-		AladdinItemResponse aladdinItemResponse = aladinBookService.searchAladin(ttbkey, Query, queryType, maxResults, start, searchTarget, output);
+		AladdinItemResponse aladdinItemResponse = aladinBookService.searchAladin(Query);
 		model.addAttribute("itemList", aladdinItemResponse.getItem());
 		
 		return "ssave/ssaveSearchList";
+	
 	}
 	
 	@GetMapping("/detail")
 	public String detailAladin(@RequestParam("itemId") String itemId
 								, Model model) {
 		
-		String itemIdType = "ISBN13";
-		String ItemId = itemId;
-		String output = "JS";
-		String OptResult = "ebookList,usedList,reviewList";
-		String Cover = "Big";
-		
-		AladdinItemDetailResponse aladdinItemDetailResponse = aladinBookService.detailAladin(ttbkey, itemIdType, ItemId, output, OptResult, Cover);
+		AladdinItemDetailResponse aladdinItemDetailResponse = aladinBookService.detailAladin(itemId);
 		model.addAttribute("item", aladdinItemDetailResponse.getItem().get(0));
 		model.addAttribute("subInfo", aladdinItemDetailResponse.getItem().get(0).getSubInfo());
 		

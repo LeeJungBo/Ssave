@@ -31,8 +31,18 @@ public class BookMark {
 	@Column(name="userId")
 	private int userId;
 	
-	@Column(name="itemId")
-	private long itemId;
+	private String isbn13;
+	
+	private String title;
+	
+	private String cover;
+	
+	@Column(name="priceSales")
+	private int priceSales;
+	
+	private String link;
+	
+	private String author;
 	
 	@Column(name="createdAt")
 	private LocalDateTime createdAt;

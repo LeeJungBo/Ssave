@@ -44,7 +44,7 @@
                     <div th:each="aladdinItemResponse:${aladdinItemResponseList}" class="card ml-3 mt-3" style="width: 18rem;">
 				        <img th:src="${aladdinItemResponse.cover}" class="image-thumbnail card-img-top mt-2 ml-2" alt="책 표지들입니다.">
 						<div class="card-body">
-						  <a th:href="|/ssave/detail?itemId=${aladdinItemResponse.isbn13}|" class="card-title text-dark h4" th:text="| 제목 : ${aladdinItemResponse.title}|">Card title</a>
+						  <a th:href="|/ssave/detail?isbn13=${aladdinItemResponse.isbn13}|" class="card-title text-dark h4" th:text="| 제목 : ${aladdinItemResponse.title}|">Card title</a>
 						  <p class="card-author mt-4" th:text="|작가 : ${aladdinItemResponse.author}|"></p>
 						  <p class="card-publisher" th:text="|출판사 : ${aladdinItemResponse.publisher}|"></p>
 						  <p class="card-pubDate" th:text="|출시일 : ${aladdinItemResponse.pubDate}|"></p>

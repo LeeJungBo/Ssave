@@ -41,8 +41,9 @@
                 </form>
             </div>
             <div class="d-flex justify-content-end">
-                <a type="button" id="bookmarkBtn" th:data-item-id="${item.isbn13}">
-                    <i class="bi bi-bookmark" style="font-size: 2rem; color: red;"></i><!-- 즐겨찾기 버튼 -->
+                <a type="button">
+                    <i id="bookmarkBtn" th:unless="${isBookMark}" class="bi bi-bookmark" style="font-size: 2rem; color: red;" th:data-isbn-13="${item.isbn13}"></i><!-- 즐겨찾기 버튼 -->
+                    <i id="unBookmarkBtn" th:if="${isBookMark}" class="bi bi-bookmark-fill" style="font-size: 2rem; color: red;" th:data-isbn-13="${item.isbn13}"></i>
                 </a>
             </div>   
             <div class="container border border-1 col-12 mt-2 d-flex">
@@ -86,12 +87,12 @@
             	  
             	  $("#bookmarkBtn").on("click",function(){
             		  
-            		  let itemId = $(this).data("item-id");
+            		  let isbn13 = $(this).data("isbn-13");
             		  
             		  $.ajax({
             			  type:"post"
             			  , url:"/bookmark/create"
-            			  , data:{"itemId":itemId}
+            			  , data:{"isbn13":isbn13}
             		      , success:function(data){
             		    	  if(data.result == "success"){
             		    		  location.reload();
@@ -105,6 +106,30 @@
             		  });
             		  
             	  });
+            	  
+                  $("#unBookmarkBtn").on("click",function(){
+                      
+                      let isbn13 = $(this).data("isbn-13");
+                      
+                      $.ajax({
+                          type:"delete"
+                          , url:"/bookmark/delete"
+                          , data:{"isbn13":isbn13}
+                          , success:function(data){
+                              if(data.result == "success"){
+                                  location.reload();
+                              }else{
+                                  alert("즐겨찾기 해제 실패");
+                              }
+                          }
+                          , errorr:function(){
+                              alert("즐겨찾기 해제 에러");
+                          }
+                      });
+                      
+                  });
+            	  
+            	  
             	  
               });
         

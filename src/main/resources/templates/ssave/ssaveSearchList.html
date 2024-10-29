@@ -42,12 +42,11 @@
                     <div th:each="item:${itemList}" class="card ml-3 mt-3" style="width: 18rem;">
                         <img th:src="${item.cover}" class="image-thumbnail card-img-top" alt="책 표지들입니다.">
                         <div class="card-body">
-                          <a th:href="|/ssave/detail?itemId=${item.isbn13}|" class="card-title text-dark h4" th:text="${item.title}">Card title</a>
+                          <a th:href="|/ssave/detail?isbn13=${item.isbn13}|" class="card-title text-dark h4" th:text="${item.title}">Card title</a>
                           <p class="card-author mt-4" th:text="${item.author}"></p>
                           <p class="card-publisher" th:text="${item.publisher}"></p>
                           <p class="card-pubDate" th:text="${item.pubDate}"></p>
                           <p class="card-pubDate" th:text="${item.priceSales}"></p><!-- 여기에 자꾸 0이 떳던건 dto멤버변수 명칭과 데이터 명칭이 맞지 않아서 그런거였음 에러 500이 떳을때 정확히 그문제를 보고 해줄것(여기에서 데이터로 끌고오는건 dto에서 끌고 오는거) -->
-                          <p class="card-pubDate" th:text="${item.priceStandard}"></p>
                         </div>
                      </div>
                 </div>

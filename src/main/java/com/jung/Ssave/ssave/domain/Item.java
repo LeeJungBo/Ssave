@@ -15,7 +15,7 @@ public class Item {
 
 	private long itemId;
 	
-	private long isbn13;
+	private String isbn13;
 	
 	private String link;
 	
@@ -32,6 +32,7 @@ public class Item {
 	private String cover;
 	
 	private int priceSales; // 다른 사이트에 있는 변수값과 이름 정확히 매칭해줄것
+	
 	
 	private SubInfo subInfo;
 	

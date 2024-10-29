@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.jung.Ssave.bookmark.service.BookMarkService;
 import com.jung.Ssave.ssave.domain.AladdinItemDetailResponse;
 import com.jung.Ssave.ssave.domain.AladdinItemResponse;
 
@@ -18,6 +19,8 @@ public class AladdinItemService {
 	
 	@Value("${aladin.ttbkey}")
 	private String ttbkey;
+	
+	
 	
 	public AladdinItemResponse connectAladin() {
 		
@@ -81,7 +84,7 @@ public class AladdinItemService {
 		
 	}
 	
-	public AladdinItemDetailResponse detailAladin(String ItemId){
+	public AladdinItemDetailResponse detailAladin(String isbn13, int userId){
 
 				String itemIdType = "ISBN13";
 				String output = "JS";
@@ -91,15 +94,19 @@ public class AladdinItemService {
 				RestTemplate restTemplate = new RestTemplate();
 				String url = API_URLD + "?ttbkey=" + ttbkey
 									  + "&itemIdType=" + itemIdType
-									  + "&ItemId=" + ItemId
+									  + "&ItemId=" + isbn13
 									  + "&output=" + output	
 									  + "&Version=20131101"
 									  + "&OptResult=" + OptResult
 									  + "&Cover=" + Cover;
-									  
+								
+				
 				try {
+					
 					AladdinItemDetailResponse aladdinItemDetailResponse = restTemplate.getForObject(url, AladdinItemDetailResponse.class);
-						return aladdinItemDetailResponse;
+					
+					return aladdinItemDetailResponse;
+				
 				} catch (Exception e) {
 						System.out.println("API 호출 에러: " + e.getMessage());
 						e.printStackTrace();

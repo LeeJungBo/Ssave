@@ -94,6 +94,11 @@ footer > .sub-login{
 	flex-wrap: wrap;
 }
 
+.bookMarkImage{
+	height: 200px;
+	width: 150px;
+}
+
 
 .card > .image-thumbnail{
 
@@ -102,4 +107,6 @@ footer > .sub-login{
     object-fit:cover;
 
 }
+
+
 

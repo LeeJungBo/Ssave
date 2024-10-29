@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jung.Ssave.bookmark.dto.MyBookMarkView;
@@ -13,7 +13,7 @@ import com.jung.Ssave.bookmark.service.BookMarkService;
 import jakarta.servlet.http.HttpSession;
 
 
-@RequestMapping("/bookmark")
+@RequestMapping("/bookmarks")
 @Controller
 public class BookMarkController {
 
@@ -25,7 +25,7 @@ public class BookMarkController {
 		
 	}
 	
-	@PostMapping("/mybookmarkview")
+	@GetMapping("/mybookmarkview")
 	public String myBookMarkView(HttpSession session
 								, Model model) {
 		

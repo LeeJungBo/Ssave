@@ -45,7 +45,6 @@ public class TipController {
 	}
 	
 	
-	
 	@GetMapping("/write-view")
 	public String tipWrite() {
 		
@@ -83,6 +82,19 @@ public class TipController {
 		model.addAttribute("tip", tip);
 		
 		return "tip/tipDetail";
+		
+	}
+	
+	@GetMapping("/update-view")
+	public String tipUpdate(
+			Model model
+			, @RequestParam("id") int id) {
+		
+		Tip tip = tipService.getTip(id);
+		
+		model.addAttribute("tip", tip);
+		
+		return "tip/tipUpdate";
 		
 	}
 	

@@ -44,9 +44,9 @@
 	                        <img class="tip-Image" th:if="${tip != null}" th:src="${tip.cover}">
 	                    </a>
                     </div>
-	                <div class="d-flex" >
-		                <button type="button" class="btn btn-success h-25" id="tipBtn">수정</button>
-		                <button type="button" class="btn btn-danger h-25 ml-2" id="tipBtn">삭제</button>
+	                <div class="d-flex" th:if="${session.userId == tip.userId}">
+		                <a th:href="|/tip/update-view?id=${tip.id}|" class="btn btn-success h-25 d-flex align-items-center" id="tipBtn">수정</a>
+		                <a class="btn btn-danger h-25 ml-2 d-flex align-items-center" id="tipBtn">삭제</a>
 	               </div>
 	            </div>
             </div>

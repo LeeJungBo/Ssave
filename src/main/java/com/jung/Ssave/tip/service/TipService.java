@@ -49,6 +49,27 @@ public class TipService {
 		
 	}
 	
+	public Tip updateTip(int id, int userId, String title, String contents) {
+		
+		Optional<Tip> optionalTip = tipRepository.findByUserIdAndId(userId, id);
+		Tip tip = optionalTip.orElse(null);
+		
+		if(tip != null) {
+			
+			Tip updateTip = tip.toBuilder()
+							   .title(title)
+							   .contents(contents)
+							   .build();
+			
+			return tipRepository.save(updateTip);
+			
+		}else {
+			
+			return null;
+		}
+		
+	}
+	
 	public List<TipListView> getTipList(){
 		
 		List<Tip> tipList =  tipRepository.findAll();

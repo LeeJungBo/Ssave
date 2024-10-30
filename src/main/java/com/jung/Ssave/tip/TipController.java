@@ -61,7 +61,10 @@ public class TipController {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
-		Item item = aladdinItemService.detailAladin(isbn13, userId).getItem().get(0);
+	//	Item item = aladdinItemService.detailAladin(isbn13, userId).getItem().get(0);
+		
+		Item item = aladdinItemService.getItem(isbn13, userId); 
+		// 최고로 좋은건 응답값과 받아온 값의 dto를 구분해줘서 하는거고 적어도 이정도는 되어야함 이렇게 바로 받아올수 있게끔
 		
 		model.addAttribute("item", item);
 		

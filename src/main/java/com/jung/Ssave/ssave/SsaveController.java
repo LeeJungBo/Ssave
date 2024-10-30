@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jung.Ssave.bookmark.service.BookMarkService;
 import com.jung.Ssave.ssave.domain.AladdinItemDetailResponse;
+import com.jung.Ssave.ssave.domain.AladdinItemDetailResponse.SubInfo;
 import com.jung.Ssave.ssave.domain.AladdinItemResponse;
+import com.jung.Ssave.ssave.domain.Item;
 import com.jung.Ssave.ssave.service.AladdinItemService;
 
 import jakarta.servlet.http.HttpSession;
@@ -65,12 +67,14 @@ public class SsaveController {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		AladdinItemDetailResponse aladdinItemDetailResponse = aladinBookService.detailAladin(isbn13, userId);
+		Item item = aladinBookService.getItem(isbn13, userId);
 		boolean isBookMark = bookMarkService.isBookMarkByUserIdAndItemId(userId, isbn13);
+		SubInfo subInfo = aladinBookService.getSubInfo(isbn13, userId);
 		
 		model.addAttribute("isBookMark", isBookMark);
 		model.addAttribute("aladdinItemDetailResponse", aladdinItemDetailResponse);
-		model.addAttribute("item", aladdinItemDetailResponse.getItem().get(0));
-		model.addAttribute("subInfo", aladdinItemDetailResponse.getItem().get(0).getSubInfo());
+		model.addAttribute("item", item);
+		model.addAttribute("subInfo", subInfo);
 		
 		return "ssave/ssaveDetail";
 	}

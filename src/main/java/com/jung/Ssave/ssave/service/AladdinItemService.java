@@ -5,9 +5,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.jung.Ssave.bookmark.service.BookMarkService;
 import com.jung.Ssave.ssave.domain.AladdinItemDetailResponse;
+import com.jung.Ssave.ssave.domain.AladdinItemDetailResponse.SubInfo;
 import com.jung.Ssave.ssave.domain.AladdinItemResponse;
+import com.jung.Ssave.ssave.domain.Item;
 
 
 @Service
@@ -114,6 +115,72 @@ public class AladdinItemService {
 				}
 
 	}
+	
+	public Item getItem(String isbn13, int userId){
+
+		String itemIdType = "ISBN13";
+		String output = "JS";
+		String OptResult = "ebookList,usedList,reviewList";
+		String Cover = "Big";
+
+		RestTemplate restTemplate = new RestTemplate();
+		String url = API_URLD + "?ttbkey=" + ttbkey
+							  + "&itemIdType=" + itemIdType
+							  + "&ItemId=" + isbn13
+							  + "&output=" + output	
+							  + "&Version=20131101"
+							  + "&OptResult=" + OptResult
+							  + "&Cover=" + Cover;
+						
+		
+		try {
+			
+			AladdinItemDetailResponse aladdinItemDetailResponse = restTemplate.getForObject(url, AladdinItemDetailResponse.class);
+			
+			Item item = aladdinItemDetailResponse.getItem().get(0);
+			 
+			return item;
+		
+		} catch (Exception e) {
+				System.out.println("API 호출 에러: " + e.getMessage());
+				e.printStackTrace();
+				return null;
+		}
+		
+	}
+		
+		public SubInfo getSubInfo(String isbn13, int userId){
+
+			String itemIdType = "ISBN13";
+			String output = "JS";
+			String OptResult = "ebookList,usedList,reviewList";
+			String Cover = "Big";
+
+			RestTemplate restTemplate = new RestTemplate();
+			String url = API_URLD + "?ttbkey=" + ttbkey
+								  + "&itemIdType=" + itemIdType
+								  + "&ItemId=" + isbn13
+								  + "&output=" + output	
+								  + "&Version=20131101"
+								  + "&OptResult=" + OptResult
+								  + "&Cover=" + Cover;
+							
+			
+			try {
+				
+				AladdinItemDetailResponse aladdinItemDetailResponse = restTemplate.getForObject(url, AladdinItemDetailResponse.class);
+				
+				SubInfo subInfo = aladdinItemDetailResponse.getItem().get(0).getSubInfo();
+				 
+				return subInfo;
+			
+			} catch (Exception e) {
+					System.out.println("API 호출 에러: " + e.getMessage());
+					e.printStackTrace();
+					return null;
+			}
+
+}
 	
 	
 	

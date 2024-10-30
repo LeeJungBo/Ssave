@@ -46,11 +46,11 @@
                         <img th:src="${myBookMark.cover}" class="bookMarkImage">
                     </div>
                     <div class="mt-2 ml-5 mr-5 mb-2">
-                        <p th:text="${myBookMark.title}" class="h5">title</p>
+                        <p th:text="| 가격 : ${myBookMark.title}|" class="h5">title</p>
                         <hr>
-                        <p th:text="${myBookMark.author}" class="h5">author</p>
+                        <p th:text="| 작가 : ${myBookMark.author}|" class="h5">author</p>
                         <hr>
-                        <p th:text="${myBookMark.priceSales}" class="h5">priveSales</p>
+                        <p th:text="| 가격 : ${myBookMark.priceSales}|" class="h5">priveSales</p>
                         <hr>
                         <a class="text-dark h5" th:href="${myBookMark.link}" >알라딘 링크</a>
                     </div>

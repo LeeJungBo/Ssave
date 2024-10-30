@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.jung.Ssave.ssave.domain.Item;
+import com.jung.Ssave.ssave.service.AladdinItemService;
 import com.jung.Ssave.tip.domain.Tip;
 import com.jung.Ssave.tip.dto.TipListView;
 import com.jung.Ssave.tip.service.TipService;
@@ -19,11 +21,15 @@ import jakarta.servlet.http.HttpSession;
 public class TipController {
 	
 	private TipService tipService;
+	private AladdinItemService aladdinItemService;
 	
-	public TipController(TipService tipService) {
+	
+	public TipController(TipService tipService, AladdinItemService aladdinItemService) {
 		
+		this.aladdinItemService = aladdinItemService;
 		this.tipService = tipService;
 	}
+	
 	
 	@GetMapping("/list-view")
 	public String tipList(
@@ -33,8 +39,6 @@ public class TipController {
 		List<TipListView> tipListView = tipService.getTipList();
 		
 		model.addAttribute("tipListView", tipListView);
-		
-		
 		
 		return "tip/tipList";
 		
@@ -49,6 +53,21 @@ public class TipController {
 		
 	}
 	
+	@GetMapping("/write-item-view")
+	public String itemTipWrite(
+			@RequestParam("isbn13") String isbn13
+			, Model model
+			, HttpSession session) {
+		
+		int userId = (Integer)session.getAttribute("userId");
+		
+		Item item = aladdinItemService.detailAladin(isbn13, userId).getItem().get(0);
+		
+		model.addAttribute("item", item);
+		
+		return "tip/tipWrite";
+		
+	}
 	
 	
 	@GetMapping("/detail-view")

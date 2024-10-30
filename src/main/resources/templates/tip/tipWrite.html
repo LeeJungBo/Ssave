@@ -37,7 +37,11 @@
                 <textarea class="pl-2 pt-2 form-control" rows="15" cols="150" id="contentsInput">내용을 입력주세요</textarea>
             </div>
             <div class="d-flex mt-3 justify-content-between">
-                <div class="product-box border border-1 text-center" id="productInput"></div>
+                <div class="item-box border border-1 text-center" id="productInput">
+                    <a class="tip-link" th:if="${item != null}" th:href="${item.link}" th:data-item-link="${item.link}">
+                        <img class="tip-Image" th:if="${item != null}" th:src="${item.cover}" th:data-item-cover="${item.cover}">
+                    </a>
+                </div>
                 <button class="form-control bg-success col-2" id="tipBtn">올리기</button>
             </div>
          </div>
@@ -58,7 +62,8 @@
                 	
                 	let title = $("#titleInput").val();
                 	let contents = $("#contentsInput").val();
-                	let productId = $("#productInput").val();
+                	let cover = $(".tip-Image").data("item-cover") || null;
+                	let link = $(".tip-link").data("item-link") || null;
                 	
                 	if(title == ""){
                 		alert("제목을 입력해주세요");
@@ -70,14 +75,11 @@
                         return;
                     }
                 	
-                	if(productId == ""){
-                		productId += Number(productId);
-                	}
                 	
                 	$.ajax({
                 		type:"post"
                 		, url:"/tip/create"
-                		, data:{"title":title, "contents":contents, "productId":productId}
+                		, data:{"title":title, "contents":contents, "cover":cover, "link":link}
                 	    , success:function(data){
                 	    	if(data.result == "success"){
                 	    		location.href = "/tip/list-view";

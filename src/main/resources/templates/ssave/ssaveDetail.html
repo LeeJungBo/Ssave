@@ -41,6 +41,9 @@
                 </form>
             </div>
             <div class="d-flex justify-content-end">
+                <a th:href="|/tip/write-item-view?isbn13=${item.isbn13}|" class="btn border border-1 btn-primary text-center btn-sm mr-2 d-flex align-items-center">
+                    꿀팁 자랑하러 가기
+                </a>
                 <a type="button">
                     <i id="bookmarkBtn" th:unless="${isBookMark}" class="bi bi-bookmark" style="font-size: 2rem; color: red;" th:data-isbn-13="${item.isbn13}"></i><!-- 즐겨찾기 버튼 -->
                     <i id="unBookmarkBtn" th:if="${isBookMark}" class="bi bi-bookmark-fill" style="font-size: 2rem; color: red;" th:data-isbn-13="${item.isbn13}"></i>
@@ -52,6 +55,7 @@
                 </div>
                 <div class="ml-4 mt-3">
                     <a class="text-dark h3 font-weight-bold" th:href="${item.link}" th:text="${item.title}">title(link : 알라딘 주소 넣을것)</a>
+                    <hr>
                     <p class="mt-5 h5" th:text="| 작가 : ${item.author}|">author</p>
                     <hr>
                     <p class="mt-2 h5" th:text="| 출판사 : ${item.publisher}|">publisher</p>

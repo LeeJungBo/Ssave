@@ -23,13 +23,14 @@ public class TipService {
 		this.userService = userService;
 	}
 	
-	public Tip addTip(int userId, int productId, String title, String contents){
+	public Tip addTip(int userId, String title, String contents, String cover, String link){
 		
 		Tip tip = Tip.builder()
 				     .userId(userId)
-				     .productId(productId)
 				     .title(title)
 				     .contents(contents)
+				     .cover(cover)
+				     .link(link)
 				     .build();
 		
 		Tip result = tipRepository.save(tip);
@@ -52,7 +53,6 @@ public class TipService {
 		
 		List<Tip> tipList =  tipRepository.findAll();
 		
-		
 		List<TipListView> tipListViewList = new ArrayList<>();
 		for(Tip tip:tipList) {
 			int userId = tip.getUserId();
@@ -64,13 +64,10 @@ public class TipService {
 									             .title(tip.getTitle())
 									             .loginId(user.getLoginId())
 									             .build();
+			
 			tipListViewList.add(tipListView);
 		// 이렇게 넣어줘야 리스트에 타이틀과 loginId가 같이 들어갈수 있음
-		
 		}
-		
-		
-		
 		
 		return tipListViewList;
 		

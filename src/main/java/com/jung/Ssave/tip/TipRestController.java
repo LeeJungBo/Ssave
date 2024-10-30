@@ -25,14 +25,15 @@ public class TipRestController {
 	
 	@PostMapping("/create")
 	public Map<String, String> createTip(
-			@RequestParam("productId") int productId
-			, @RequestParam("title") String title
+			 @RequestParam("title") String title
 			, @RequestParam("contents") String contents
+			, @RequestParam(value = "cover", required = false) String cover
+			, @RequestParam(value = "link", required = false) String link
 			, HttpSession session){
 			
 			int userId = (Integer)session.getAttribute("userId");
 		
-			Tip tip = tipService.addTip(userId, productId, title, contents);
+			Tip tip = tipService.addTip(userId, title, contents, cover, link);
 			
 			Map<String, String> resultMap = new HashMap<>();
 			if(tip != null) {

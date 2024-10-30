@@ -29,10 +29,10 @@ public class Tip {
 	private int id;
 	@Column(name="userId")
 	private int userId;
-	@Column(name="productId")
-	private int productId;
 	private String title;
 	private String contents;
+	private String cover;
+	private String link;
 	@CreationTimestamp
 	@Column(name="createdAt")
 	private LocalDateTime createdAt;

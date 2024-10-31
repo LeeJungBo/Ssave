@@ -94,4 +94,24 @@ public class TipService {
 		
 	}
 	
+	public boolean deleteTip(int id){
+		
+		Optional<Tip> optionalTip = tipRepository.findById(id);
+		Tip tip = optionalTip.orElse(null);
+		
+		if(tip != null) {
+			
+			tipRepository.delete(tip);
+			return true;
+		
+		}else {
+			
+			return false;
+			
+		}
+		
+		
+		
+	}
+	
 }

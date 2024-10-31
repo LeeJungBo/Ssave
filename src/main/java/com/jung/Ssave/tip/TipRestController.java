@@ -3,6 +3,7 @@ package com.jung.Ssave.tip;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,6 +73,28 @@ public class TipRestController {
 		
 		return resultMap;
 	}
+	
+	@DeleteMapping("/delete")
+	public Map<String, String> deleteTip(
+			@RequestParam("id") int id){
+		
+		Map<String, String> resultMap = new HashMap<>();
+		if(tipService.deleteTip(id)) {
+			
+			resultMap.put("result", "success");
+		
+		}else {
+			
+			resultMap.put("result", "fail");
+			
+		}
+		
+		return resultMap;
+		
+	}
+	
+	
+	
 	
 	
 	

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jung.Ssave.kakaologin.domain.KakaoUser;
 import com.jung.Ssave.kakaologin.service.KakaoLoginService;
+import com.jung.Ssave.ssave.domain.AladdinItemResponse;
+import com.jung.Ssave.ssave.service.AladdinItemService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -16,9 +18,11 @@ import jakarta.servlet.http.HttpSession;
 public class KakaoLoginController {
 	
 	private KakaoLoginService kakaoLoginService;
+	private AladdinItemService aladinBookService;
 	
-	public KakaoLoginController(KakaoLoginService kakaoLoginService) {
+	public KakaoLoginController(KakaoLoginService kakaoLoginService, AladdinItemService aladinBookService) {
 		this.kakaoLoginService = kakaoLoginService;
+		this.aladinBookService = aladinBookService;
 	}
 	
 	@GetMapping("/connect")
@@ -38,11 +42,25 @@ public class KakaoLoginController {
 		System.out.println("access_token : " + access_Token);
 		
 		// 사용자 정보 가져오기
-	    KakaoUser kakaoUser = kakaoLoginService.addUserInfo(access_Token);
+	    KakaoUser kakaoUser = kakaoLoginService.getUserInfo(access_Token);
 
-	    model.addAttribute("kakaoUser", kakaoUser);
+	   if(kakaoUser != null) {
+		   
+		   session.setAttribute("kakaoUserId", kakaoUser.getId());
+		   session.setAttribute("nickName", kakaoUser.getNickName());
+		   
+		   AladdinItemResponse aladdinItemResponse = aladinBookService.connectAladin();
+		
+		   model.addAttribute("aladdinItemResponseList",aladdinItemResponse.getItem());
+	   
+		   return "/ssave/ssaveList";
+	   
+	   }else {
+		   
+		   return null ;
+	   }
+	   
 	    
-	    return "kakaoUser";
 	}
 	
 

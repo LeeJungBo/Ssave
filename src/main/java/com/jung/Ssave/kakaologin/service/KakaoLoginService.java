@@ -6,8 +6,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -114,8 +112,7 @@ public class KakaoLoginService {
 	}
 	
 	
-	
-	public KakaoUser addUserInfo(String access_Token)throws Exception{
+	public KakaoUser getUserInfo(String access_Token)throws Exception{
 		
 		
 		final String requestUrl = "https://kapi.kakao.com/v2/user/me";
@@ -147,31 +144,45 @@ public class KakaoLoginService {
 		System.out.println("kakao_account response: " + kakao_account);
 		
 		String thumbnail_image = properties.getAsJsonObject().get("thumbnail_image").getAsString();
-        String ninkname = properties.getAsJsonObject().get("nickname").getAsString();
+        String nickname = properties.getAsJsonObject().get("nickname").getAsString();
         String email = kakao_account.getAsJsonObject().get("email").getAsString();
 		
         System.out.println("thumbnail_image response: " + thumbnail_image);
-		System.out.println("ninkname: " + ninkname);
+		System.out.println("ninkname: " + nickname);
 		System.out.println("email: " + email);
 		
-		Encrypt encrypt = new Encrypt();
-		String salt = encrypt.getSalt();
-		String encryptEmail = encrypt.getEncrypt(email, salt);
+		KakaoUser kakaoUser = kakaoUserRepository.findByNickName(nickname);
 		
-		
-		KakaoUser newKakaoUser = KakaoUser.builder()
-							           .nickName(ninkname)
-							           .email(encryptEmail)
-							           .thumbnail_image(thumbnail_image)
-							           .salt(salt)
-							           .build();
-		
-		return kakaoUserRepository.save(newKakaoUser);
-        
-		
-       
+		if(kakaoUser == null) {
+			
+			Encrypt encrypt = new Encrypt();
+			String salt = encrypt.getSalt();
+			String encryptEmail = encrypt.getEncrypt(email, salt);
+			
+			KakaoUser newKakaoUser = KakaoUser.builder()
+								           .nickName(nickname)
+								           .email(encryptEmail)
+								           .thumbnail_image(thumbnail_image)
+								           .salt(salt)
+								           .build();
+			kakaoUser = kakaoUserRepository.save(newKakaoUser);
+			
+			return kakaoUser;
+			
+		} else {
+			
+			Encrypt encrypt = new Encrypt();
+			String encryptEmail = encrypt.getEncrypt(email, kakaoUser.getSalt());
+			kakaoUser = kakaoUserRepository.findByEmail(encryptEmail);
+			
+			return kakaoUser;
+			
+		}
 		
 	}
+	
+	
+	
 	
 	
 }

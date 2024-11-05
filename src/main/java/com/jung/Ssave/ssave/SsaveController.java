@@ -35,7 +35,7 @@ public class SsaveController {
 	
 
 	@GetMapping("/listView")
-	public String connectAladin(Model model) {
+	public String connectAladin(Model model, HttpSession session) {
         
 		
 		AladdinItemResponse aladdinItemResponse = aladinBookService.connectAladin();

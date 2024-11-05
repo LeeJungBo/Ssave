@@ -38,8 +38,20 @@ public class KakaoLoginController {
 			, HttpSession session
 			, Model model) throws Exception {
 		
-		String access_Token = kakaoLoginService.getToken(code);
-		System.out.println("access_token : " + access_Token);
+		// 세션에서 Access Token을 먼저 확인
+		String access_Token = (String) session.getAttribute("access_Token");
+		
+		if(access_Token == null) {
+			
+			access_Token = kakaoLoginService.getToken(code);
+			System.out.println("access_token : " + access_Token);
+			session.setAttribute("access_Token", access_Token);
+			
+		}else {
+			 
+			System.out.println("Existing access_token : " + access_Token);
+		
+		}
 		
 		// 사용자 정보 가져오기
 	    KakaoUser kakaoUser = kakaoLoginService.getUserInfo(access_Token);
@@ -47,7 +59,7 @@ public class KakaoLoginController {
 	   if(kakaoUser != null) {
 		   
 		   session.setAttribute("kakaoUserId", kakaoUser.getId());
-		   session.setAttribute("nickName", kakaoUser.getNickName());
+		   session.setAttribute("kakaoNickName", kakaoUser.getNickName());
 		   
 		   AladdinItemResponse aladdinItemResponse = aladinBookService.connectAladin();
 		
@@ -57,7 +69,7 @@ public class KakaoLoginController {
 	   
 	   }else {
 		   
-		   return null ;
+		   return "redirect:/error" ;
 	   
 	   }
 	   

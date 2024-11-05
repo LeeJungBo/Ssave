@@ -31,12 +31,14 @@ public class SsaveController {
 		
 		this.aladinBookService = aladinBookService;
 		this.bookMarkService = bookMarkService;
+		
 	}
 	
 
 	@GetMapping("/listView")
 	public String connectAladin(Model model, HttpSession session) {
         
+		
 		
 		AladdinItemResponse aladdinItemResponse = aladinBookService.connectAladin();
 		
@@ -64,7 +66,6 @@ public class SsaveController {
 								, Model model
 								, HttpSession session) {
 		
-		
 		int userId = (Integer)session.getAttribute("userId");
 		AladdinItemDetailResponse aladdinItemDetailResponse = aladinBookService.detailAladin(isbn13, userId);
 		Item item = aladinBookService.getItem(isbn13, userId);
@@ -77,9 +78,7 @@ public class SsaveController {
 		model.addAttribute("subInfo", subInfo);
 		
 		return "ssave/ssaveDetail";
+		
 	}
-	
-	
-	
 	
 }

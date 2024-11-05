@@ -68,7 +68,6 @@ public class KakaoLoginService {
 		bufferedWriter.write(stringBuilder.toString());
 		bufferedWriter.flush();
 		
-		
 		// 서버의 응답 데이텉 가져옴
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpUrlConnection.getInputStream()));
 		String line="";
@@ -100,8 +99,9 @@ public class KakaoLoginService {
 	
 	
 	public boolean validateToken(String accessToken) throws Exception {
-	    final String requestUrl = "https://kapi.kakao.com/v1/user/access_token_info";
-
+	    
+		final String requestUrl = "https://kapi.kakao.com/v1/user/access_token_info";
+		
 	    URL url = new URL(requestUrl);
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    connection.setRequestMethod("GET");
@@ -109,11 +109,11 @@ public class KakaoLoginService {
 
 	    int responseCode = connection.getResponseCode();
 	    return responseCode == 200;  // 200 응답 시 유효한 토큰
+	
 	}
 	
 	
 	public KakaoUser getUserInfo(String access_Token)throws Exception{
-		
 		
 		final String requestUrl = "https://kapi.kakao.com/v2/user/me";
 		
@@ -136,6 +136,7 @@ public class KakaoLoginService {
 		System.out.println("userInfo response: " + result); // 응답 전체 출력
 		
 		JsonElement jsonElement = JsonParser.parseString(result);
+		System.out.println("jsonElement response: " + jsonElement);
 		
 		JsonObject properties = jsonElement.getAsJsonObject().get("properties").getAsJsonObject();
 		JsonObject kakao_account = jsonElement.getAsJsonObject().get("kakao_account").getAsJsonObject();

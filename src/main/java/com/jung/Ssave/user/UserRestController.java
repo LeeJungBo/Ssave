@@ -39,9 +39,13 @@ public class UserRestController {
 		
 		Map<String, String> resultMap = new HashMap<>();
 		if(user != null ) {
+			
 			resultMap.put("result", "success");
+		
 		}else {
+			
 			resultMap.put("result", "fail");
+		
 		}
 		
 		return resultMap;
@@ -58,11 +62,15 @@ public class UserRestController {
 		
 		Map<String, String> resultMap = new HashMap<>();
 		if(user != null ) {
+		
 			resultMap.put("result", "success");
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("userName", user.getName());
-		}else {
+		
+		} else {
+		
 			resultMap.put("result", "fail");
+		
 		}
 		
 		return resultMap;

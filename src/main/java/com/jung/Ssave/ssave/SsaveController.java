@@ -38,9 +38,80 @@ public class SsaveController {
 	@GetMapping("/listView")
 	public String connectAladin(Model model, HttpSession session) {
         
-		
-		
 		AladdinItemResponse aladdinItemResponse = aladinBookService.connectAladin();
+		
+		model.addAttribute("aladdinItemResponseList",aladdinItemResponse.getItem()); // 아예 직접적으로 리스를 내가 get으로 끌고와서 해보자
+																				     // 맞네 자꾸 기본장착된 tostring()메소드가 호출되게 되어서 AladdinItemResponse 객체 자체를 뷰로 전달되었기 때문이다.
+		return "ssave/ssaveList";
+        
+	}
+	
+	
+	@GetMapping("/listViewNew")
+	public String connectNewAladin(Model model, HttpSession session) {
+        
+		AladdinItemResponse aladdinItemResponse = aladinBookService.connectNewAladin();
+		
+		model.addAttribute("aladdinItemResponseList",aladdinItemResponse.getItem()); // 아예 직접적으로 리스를 내가 get으로 끌고와서 해보자
+																				     // 맞네 자꾸 기본장착된 tostring()메소드가 호출되게 되어서 AladdinItemResponse 객체 자체를 뷰로 전달되었기 때문이다.
+		return "ssave/ssaveList";
+        
+	}
+	
+	
+	@GetMapping("/listViewNewSpecial")
+	public String connectSpecialNewAladin(Model model, HttpSession session) {
+        
+		AladdinItemResponse aladdinItemResponse = aladinBookService.connectSpecialNewAladin();
+		
+		model.addAttribute("aladdinItemResponseList",aladdinItemResponse.getItem()); // 아예 직접적으로 리스를 내가 get으로 끌고와서 해보자
+																				     // 맞네 자꾸 기본장착된 tostring()메소드가 호출되게 되어서 AladdinItemResponse 객체 자체를 뷰로 전달되었기 때문이다.
+		return "ssave/ssaveList";
+        
+	}
+	
+	
+	
+	
+	@GetMapping("/listMusic")
+	public String connectMusicAladin(Model model, HttpSession session) {
+        
+		AladdinItemResponse aladdinItemResponse = aladinBookService.connectMusicAladin();
+		
+		model.addAttribute("aladdinItemResponseList",aladdinItemResponse.getItem()); // 아예 직접적으로 리스를 내가 get으로 끌고와서 해보자
+																				     // 맞네 자꾸 기본장착된 tostring()메소드가 호출되게 되어서 AladdinItemResponse 객체 자체를 뷰로 전달되었기 때문이다.
+		return "ssave/ssaveList";
+        
+	}
+	
+	
+	@GetMapping("/listNewMusic")
+	public String connectNewMusicAladin(Model model, HttpSession session) {
+        
+		AladdinItemResponse aladdinItemResponse = aladinBookService.connectNewMusicAladin();
+		
+		model.addAttribute("aladdinItemResponseList",aladdinItemResponse.getItem()); // 아예 직접적으로 리스를 내가 get으로 끌고와서 해보자
+																				     // 맞네 자꾸 기본장착된 tostring()메소드가 호출되게 되어서 AladdinItemResponse 객체 자체를 뷰로 전달되었기 때문이다.
+		return "ssave/ssaveList";
+        
+	}
+	
+	
+	@GetMapping("/listDvd")
+	public String connectDvdAladin(Model model, HttpSession session) {
+        
+		AladdinItemResponse aladdinItemResponse = aladinBookService.connectDvdAladin();
+		
+		model.addAttribute("aladdinItemResponseList",aladdinItemResponse.getItem()); // 아예 직접적으로 리스를 내가 get으로 끌고와서 해보자
+																				     // 맞네 자꾸 기본장착된 tostring()메소드가 호출되게 되어서 AladdinItemResponse 객체 자체를 뷰로 전달되었기 때문이다.
+		return "ssave/ssaveList";
+        
+	}
+	
+	@GetMapping("/listNewDvd")
+	public String connectNewDvdAladin(Model model, HttpSession session) {
+        
+		AladdinItemResponse aladdinItemResponse = aladinBookService.connectNewDvdAladin();
 		
 		model.addAttribute("aladdinItemResponseList",aladdinItemResponse.getItem()); // 아예 직접적으로 리스를 내가 get으로 끌고와서 해보자
 																				     // 맞네 자꾸 기본장착된 tostring()메소드가 호출되게 되어서 AladdinItemResponse 객체 자체를 뷰로 전달되었기 때문이다.
@@ -60,6 +131,7 @@ public class SsaveController {
 		return "ssave/ssaveSearchList";
 	
 	}
+	
 	
 	@GetMapping("/detail")
 	public String detailAladin(@RequestParam("isbn13") String isbn13

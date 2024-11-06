@@ -27,12 +27,25 @@
                 </div>
             </div>
             <div class="market-logo text-center">
-                <div class="mt-2">쿠팡</div>
-                <div class="mt-2">아마존</div>
+               <ul class="nav">       
+                   <li class="nav-item"><a href="/ssave/listViewNew" class="nav-link text-dark">신작작품</a></li>
+                   <li class="nav-item"><a href="/ssave/listViewNewSpecial" class="nav-link text-dark">화제의 신작작품</a></li>
+                   <li class="nav-item"><a href="/ssave/listMusic" class="nav-link text-dark">최고의 음반</a></li>
+                   <li class="nav-item"><a href="/ssave/listNewMusic" class="nav-link text-dark">최신 음반</a></li>
+                   <li class="nav-item"><a href="/ssave/listDvd" class="nav-link text-dark">인기 DVD</a></li>
+                   <li class="nav-item"><a href="/ssave/listNewDvd" class="nav-link text-dark">최신 DVD</a></li>
+               </ul>
             </div>
         </nav>
         <div class="section ml-3">
-            <a href="/ssave/listView" class="text-dark logo display-4 font-weight-bold">SSave</a>
+            <div class="d-flex justify-content-between">
+                <a href="/ssave/listView" class="text-dark logo display-4 font-weight-bold">SSave</a>
+                <div class="mt-5 mr-5 d-flex">
+                    <p th:if="${session.userName != null}" th:text="${session.userName}"></p>
+                    <p th:if="${session.kakaoNickName != null && session.userName == null}" th:text="${session.kakaoNickName}"></p>
+                    <a href="/user/logout">로그아웃</a>
+                </div>
+            </div>
             <h3 class="mt-3">여러분의 소중한 꿀팁을 공유 해주세요</h3>
             <input th:placeholder="${tip.title}" class="mt-5 col-12 form-control" type="text" id="updateTitleInput">
             <div class="mt-3">

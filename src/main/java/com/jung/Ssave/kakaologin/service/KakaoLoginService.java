@@ -106,7 +106,7 @@ public class KakaoLoginService {
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    connection.setRequestMethod("GET");
 	    connection.setRequestProperty("Authorization", "Bearer " + accessToken);
-
+	    
 	    int responseCode = connection.getResponseCode();
 	    return responseCode == 200;  // 200 응답 시 유효한 토큰
 	

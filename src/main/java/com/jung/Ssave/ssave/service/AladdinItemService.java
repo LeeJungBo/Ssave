@@ -44,10 +44,163 @@ public class AladdinItemService {
 		// AladinBookResponse.class 이 클래스를 그 알라딘의 응답 구조와 똑같이 만들어주자 우리 그 dto만들어줄때 했다.
 		
 		return response;
-	
+		
 	}
 	
 	
+	public AladdinItemResponse connectSpecialNewAladin() {
+		
+		String queryType = "ItemNewSpecial";
+		int maxResults = 50;
+		int start = 1;
+		String searchTarget = "Book";
+		String output = "JS";
+		
+		RestTemplate restTemplate = new RestTemplate();
+		String url = API_URL + "?ttbkey=" + ttbkey
+							 + "&QueryType=" + queryType
+							 + "&MaxResults=" + maxResults	
+							 + "&start=" + start
+							 + "&SearchTarget=" + searchTarget
+							 + "&output=" + output
+							 + "&Version=20131101";
+		
+		AladdinItemResponse response = restTemplate.getForObject(url, AladdinItemResponse.class);
+		// AladinBookResponse.class 이 클래스를 그 알라딘의 응답 구조와 똑같이 만들어주자 우리 그 dto만들어줄때 했다.
+		
+		return response;
+		
+	}
+	
+	
+	
+	public AladdinItemResponse connectNewAladin() {
+		
+		String queryType = "ItemNewAll";
+		int maxResults = 50;
+		int start = 1;
+		String searchTarget = "Book";
+		String output = "JS";
+		
+		RestTemplate restTemplate = new RestTemplate();
+		String url = API_URL + "?ttbkey=" + ttbkey
+							 + "&QueryType=" + queryType
+							 + "&MaxResults=" + maxResults	
+							 + "&start=" + start
+							 + "&SearchTarget=" + searchTarget
+							 + "&output=" + output
+							 + "&Version=20131101";
+		
+		AladdinItemResponse response = restTemplate.getForObject(url, AladdinItemResponse.class);
+		// AladinBookResponse.class 이 클래스를 그 알라딘의 응답 구조와 똑같이 만들어주자 우리 그 dto만들어줄때 했다.
+		
+		return response;
+		
+	}
+	
+	
+	
+	
+	public AladdinItemResponse connectMusicAladin() {
+		
+		String queryType = "Bestseller";
+		int maxResults = 50;
+		int start = 1;
+		String searchTarget = "Music";
+		String output = "JS";
+		
+		RestTemplate restTemplate = new RestTemplate();
+		String url = API_URL + "?ttbkey=" + ttbkey
+							 + "&QueryType=" + queryType
+							 + "&MaxResults=" + maxResults	
+							 + "&start=" + start
+							 + "&SearchTarget=" + searchTarget
+							 + "&output=" + output
+							 + "&Version=20131101";
+		
+		AladdinItemResponse response = restTemplate.getForObject(url, AladdinItemResponse.class);
+		// AladinBookResponse.class 이 클래스를 그 알라딘의 응답 구조와 똑같이 만들어주자 우리 그 dto만들어줄때 했다.
+		
+		return response;
+		
+	}
+	
+	
+	public AladdinItemResponse connectNewMusicAladin() {
+		
+		String queryType = "ItemNewAll";
+		int maxResults = 50;
+		int start = 1;
+		String searchTarget = "Music";
+		String output = "JS";
+		
+		RestTemplate restTemplate = new RestTemplate();
+		String url = API_URL + "?ttbkey=" + ttbkey
+							 + "&QueryType=" + queryType
+							 + "&MaxResults=" + maxResults	
+							 + "&start=" + start
+							 + "&SearchTarget=" + searchTarget
+							 + "&output=" + output
+							 + "&Version=20131101";
+		
+		AladdinItemResponse response = restTemplate.getForObject(url, AladdinItemResponse.class);
+		// AladinBookResponse.class 이 클래스를 그 알라딘의 응답 구조와 똑같이 만들어주자 우리 그 dto만들어줄때 했다.
+		
+		return response;
+		
+	}
+	
+	
+	
+	public AladdinItemResponse connectDvdAladin() {
+		
+		String queryType = "Bestseller";
+		int maxResults = 50;
+		int start = 1;
+		String searchTarget = "DVD";
+		String output = "JS";
+		
+		RestTemplate restTemplate = new RestTemplate();
+		String url = API_URL + "?ttbkey=" + ttbkey
+							 + "&QueryType=" + queryType
+							 + "&MaxResults=" + maxResults	
+							 + "&start=" + start
+							 + "&SearchTarget=" + searchTarget
+							 + "&output=" + output
+							 + "&Version=20131101";
+		
+		AladdinItemResponse response = restTemplate.getForObject(url, AladdinItemResponse.class);
+		// AladinBookResponse.class 이 클래스를 그 알라딘의 응답 구조와 똑같이 만들어주자 우리 그 dto만들어줄때 했다.
+		
+		return response;
+		
+	}
+	
+	
+	
+	public AladdinItemResponse connectNewDvdAladin() {
+		
+		String queryType = "ItemNewAll";
+		int maxResults = 50;
+		int start = 1;
+		String searchTarget = "DVD";
+		String output = "JS";
+		
+		RestTemplate restTemplate = new RestTemplate();
+		String url = API_URL + "?ttbkey=" + ttbkey
+							 + "&QueryType=" + queryType
+							 + "&MaxResults=" + maxResults	
+							 + "&start=" + start
+							 + "&SearchTarget=" + searchTarget
+							 + "&output=" + output
+							 + "&Version=20131101";
+		
+		AladdinItemResponse response = restTemplate.getForObject(url, AladdinItemResponse.class);
+		// AladinBookResponse.class 이 클래스를 그 알라딘의 응답 구조와 똑같이 만들어주자 우리 그 dto만들어줄때 했다.
+		
+		return response;
+		
+	}
 	
 	
 	public AladdinItemResponse searchAladin(String Query){
@@ -149,6 +302,8 @@ public class AladdinItemService {
 		
 	}
 		
+	
+	
 		public SubInfo getSubInfo(String isbn13, int userId){
 
 			String itemIdType = "ISBN13";
@@ -180,7 +335,7 @@ public class AladdinItemService {
 					return null;
 			}
 
-}
+		}
 	
 	
 	

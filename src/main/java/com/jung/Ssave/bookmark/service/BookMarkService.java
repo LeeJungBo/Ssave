@@ -77,6 +77,7 @@ public class BookMarkService {
 		for(BookMark bookMark : bookMarkList) {
 			
 			MyBookMarkView myBookMarkView = MyBookMarkView.builder()
+														  .isbn13(bookMark.getIsbn13())
 														  .userId(bookMark.getUserId())
 														  .title(bookMark.getTitle())
 														  .cover(bookMark.getCover())

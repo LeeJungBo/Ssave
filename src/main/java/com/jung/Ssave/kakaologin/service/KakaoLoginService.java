@@ -14,19 +14,18 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.jung.Ssave.common.Encrypt;
-import com.jung.Ssave.kakaologin.domain.KakaoUser;
-import com.jung.Ssave.kakaologin.repository.KakaoUserRepository;
+import com.jung.Ssave.user.domain.User;
+import com.jung.Ssave.user.repository.UserRepository;
 
 @Service
 public class KakaoLoginService {
 
 	@Value("${kakao.client_id}")
 	private String client_id;
-	private KakaoUserRepository kakaoUserRepository;
+	private UserRepository userRepository;
 	
-	public KakaoLoginService(KakaoUserRepository kakaoUserRepository) {
-		this.kakaoUserRepository = kakaoUserRepository;
-		
+	public KakaoLoginService( UserRepository userRepository) {
+		this.userRepository = userRepository;
 	}
 	
 	public String kakaoConnect() {
@@ -62,7 +61,7 @@ public class KakaoLoginService {
 		stringBuilder.append("grant_type=authorization_code");
 		stringBuilder.append("&client_id="+client_id);
 		stringBuilder.append("&redirect_uri=http://localhost:8080/kakao/callback");
-		stringBuilder.append("&code="+code); 
+		stringBuilder.append("&code="+code);
 		// code의 redirect를 통해서 바로 "로그인을 할시"에 code=?를 뜨게 만들고 이로써 '?'의 값은 위에 code의 값으로 작용하고  getToken()메소드의 파라미터 code로 작용하게 됨
 		// 로그인을 하고 동의절차에서 동의를 누르는 순간(즉, 동의 버튼이 'code의 값'을 요청값으로 보내게됨)
 		bufferedWriter.write(stringBuilder.toString());
@@ -113,7 +112,7 @@ public class KakaoLoginService {
 	}
 	
 	
-	public KakaoUser getUserInfo(String access_Token)throws Exception{
+	public User getUserInfo(String access_Token)throws Exception{
 		
 		final String requestUrl = "https://kapi.kakao.com/v2/user/me";
 		
@@ -144,41 +143,48 @@ public class KakaoLoginService {
 		System.out.println("properties response: " + properties);
 		System.out.println("kakao_account response: " + kakao_account);
 		
+		String numberId = jsonElement.getAsJsonObject().get("id").getAsString();
 		String thumbnail_image = properties.getAsJsonObject().get("thumbnail_image").getAsString();
         String nickname = properties.getAsJsonObject().get("nickname").getAsString();
         String email = kakao_account.getAsJsonObject().get("email").getAsString();
 		
+        
+        System.out.println("numberId: " + numberId);
         System.out.println("thumbnail_image response: " + thumbnail_image);
 		System.out.println("ninkname: " + nickname);
 		System.out.println("email: " + email);
 		
-		KakaoUser kakaoUser = kakaoUserRepository.findByNickName(nickname);
+
+		User user = userRepository.findByLoginId(numberId);
 		
-		if(kakaoUser == null) {
+		if(user == null) {
 			
 			Encrypt encrypt = new Encrypt();
 			String salt = encrypt.getSalt();
 			String encryptEmail = encrypt.getEncrypt(email, salt);
 			
-			KakaoUser newKakaoUser = KakaoUser.builder()
-								           .nickName(nickname)
-								           .email(encryptEmail)
-								           .thumbnail_image(thumbnail_image)
-								           .salt(salt)
-								           .build();
-			kakaoUser = kakaoUserRepository.save(newKakaoUser);
+			User newUser = User.builder()
+							   .loginId(numberId)
+							   .name(nickname)
+							   .password(encryptEmail)
+							   .salt(salt)
+							   .phoneNumber(numberId)
+							   .build();
+			user = userRepository.save(newUser);
 			
-			return kakaoUser;
-			
-		} else {
+			return user;
+							   
+		}else {
 			
 			Encrypt encrypt = new Encrypt();
-			String encryptEmail = encrypt.getEncrypt(email, kakaoUser.getSalt());
-			kakaoUser = kakaoUserRepository.findByEmail(encryptEmail);
+			String encryptEmail = encrypt.getEncrypt(email, user.getSalt());
+			user = userRepository.findByLoginIdAndPassword(numberId, encryptEmail);
 			
-			return kakaoUser;
+			return user;
 			
 		}
+		
+		
 		
 	}
 	

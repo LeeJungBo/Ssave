@@ -84,6 +84,7 @@ public class TipService {
 											     .tipId(tip.getId())
 									             .title(tip.getTitle())
 									             .loginId(user.getLoginId())
+									             .name(user.getName())
 									             .build();
 			
 			tipListViewList.add(tipListView);

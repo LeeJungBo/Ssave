@@ -45,7 +45,7 @@
                     <a href="/user/logout">로그아웃</a>
                 </div>
             </div>
-            <h3 class="mt-3">실시간 낮은 가격을 한눈에!</h3>
+            <h3 class="mt-3">알라딘의 알짜배기 상품들을 경험해보세요!</h3>
             <div class="search-box col-12 mt-5">
                 <ul id="keywordListEl" class="d-flex pl-0"></ul>
                 <form id="form" class="d-flex" action="/ssave/listView-search" method="get">
@@ -54,11 +54,11 @@
                 </form>
             </div>
             <div class="container col-12 mt-2">
-                <div th:each="myBookMark:${myBookMarkList}" class="ml-3 mt-3 mb-3 border border-1 d-flex col-10">
+                <div th:if="${session.userId == myBookMark.userId}" th:each="myBookMark:${myBookMarkList}" class="ml-3 mt-3 mb-3 border border-1 d-flex col-10">
                     <div class="mt-2"> 
                         <img th:src="${myBookMark.cover}" class="bookMarkImage">
                     </div>
-                    <div class="mt-2 ml-5 mr-5 mb-2">
+                    <div class="mt-2 ml-5 mr-5 mb-2">;
                         <p th:text="| 가격 : ${myBookMark.title}|" class="h5">title</p>
                         <hr>
                         <p th:text="| 작가 : ${myBookMark.author}|" class="h5">author</p>

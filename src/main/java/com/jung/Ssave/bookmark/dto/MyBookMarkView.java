@@ -7,6 +7,8 @@ import lombok.Getter;
 @Getter
 public class MyBookMarkView {
 
+	private int userId;
+	
 	private String title;
 	
 	private String cover;

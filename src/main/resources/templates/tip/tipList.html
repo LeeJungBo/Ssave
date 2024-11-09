@@ -42,7 +42,6 @@
                 <a href="/ssave/listView" class="text-dark logo display-4 font-weight-bold">SSave</a>
                 <div class="mt-5 mr-5 d-flex">
                     <p th:if="${session.userName != null}" th:text="${session.userName}"></p>
-                    <p th:if="${session.kakaoNickName != null && session.userName == null}" th:text="${session.kakaoNickName}"></p>
                     <a href="/user/logout">로그아웃</a>
                 </div>
             </div>
@@ -51,7 +50,7 @@
                 <tbody>
                     <tr th:each="tip:${tipListView}">
                         <td><a th:href="|/tip/detail-view?id=${tip.tipId}|" th:text="${tip.title}">이 물건 좋아용!!!</a></td>
-                        <td th:text="${tip.loginId}">미연</td>
+                        <td th:text="${tip.name}">미연</td>
                     </tr>
                 </tbody>
              </table>

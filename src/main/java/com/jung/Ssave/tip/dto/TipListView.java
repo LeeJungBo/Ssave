@@ -13,5 +13,6 @@ public class TipListView {
 	
 	private String title;
 	private String loginId; 
+	private String name;
 	
 }

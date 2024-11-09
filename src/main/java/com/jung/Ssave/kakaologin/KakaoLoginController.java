@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.jung.Ssave.kakaologin.domain.KakaoUser;
 import com.jung.Ssave.kakaologin.service.KakaoLoginService;
 import com.jung.Ssave.ssave.domain.AladdinItemResponse;
 import com.jung.Ssave.ssave.service.AladdinItemService;
+import com.jung.Ssave.user.domain.User;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -54,12 +54,12 @@ public class KakaoLoginController {
 		}
 		
 		// 사용자 정보 가져오기
-	    KakaoUser kakaoUser = kakaoLoginService.getUserInfo(access_Token);
+	    User user = kakaoLoginService.getUserInfo(access_Token);
 
-	   if(kakaoUser != null) {
+	   if(user != null) {
 		   
-		   session.setAttribute("kakaoUserId", kakaoUser.getId());
-		   session.setAttribute("kakaoNickName", kakaoUser.getNickName());
+		   session.setAttribute("userId", user.getId());
+		   session.setAttribute("userName", user.getName());
 		   
 		   AladdinItemResponse aladdinItemResponse = aladinBookService.connectAladin();
 		
